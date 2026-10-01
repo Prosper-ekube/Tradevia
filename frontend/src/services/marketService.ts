@@ -31,4 +31,8 @@ export const marketService = {
       return markets.find((m) => m.slug === slug)
     }
   },
+
+  async getLiveMarkets(): Promise<Market[]> {
+    return api.get<Market[]>('/live-markets/')
+  },
 }

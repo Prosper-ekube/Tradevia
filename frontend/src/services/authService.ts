@@ -1,4 +1,5 @@
 import { api } from './api'
+import type { AuthResponse } from '@/types'
 
 export interface Credentials {
   email: string
@@ -10,6 +11,7 @@ export interface RegisterPayload extends Credentials {
 }
 
 export const authService = {
-  login: (payload: Credentials) => api.post<{ token: string }>('/auth/login/', payload),
-  register: (payload: RegisterPayload) => api.post<{ token: string }>('/auth/register/', payload),
+  login: (payload: Credentials) => api.post<AuthResponse>('/auth/login/', payload),
+  register: (payload: RegisterPayload) => api.post<AuthResponse>('/auth/register/', payload),
+  logout: () => api.post<void>('/auth/logout/', {}),
 }

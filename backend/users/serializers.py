@@ -4,19 +4,22 @@ from rest_framework import serializers
 
 User = get_user_model()
 
-
 class RegisterSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True, validators=[validate_password])
-    fullName = serializers.CharField(source="first_name", write_only=True, required=False, allow_blank=True)
+    password = serializers.CharField(
+        write_only=True, validators=[validate_password])
+    fullName = serializers.CharField(
+        source="first_name", write_only=True, required=False, allow_blank=True)
 
     class Meta:
         model = User
         fields = ["email", "password", "fullName"]
 
     def validate_email(self, value):
-        if User.objects.filter(username=value).exists():
-            raise serializers.ValidationError("An account with this email already exists.")
-        return value
+        email = value.strip().lower()
+        if User.objects.filter(username__iexact=email).exists():
+            raise serializers.ValidationError(
+                "An account with this email already exists.")
+        return email
 
     def create(self, validated_data):
         password = validated_data.pop("password")
@@ -26,7 +29,6 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.set_password(password)
         user.save()
         return user
-
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:

@@ -1,45 +1,80 @@
 import { useState, type FormEvent } from 'react'
 import { FormField } from './FormField'
 import { Button } from '@/components/common/Button'
-import type { RequestState } from '@/types'
+import { ApiError } from '@/services/api'
+import type { AuthResponse, RequestState } from '@/types'
+
+interface AuthFormValues {
+  fullName?: string
+  email: string
+  password: string
+}
 
 interface AuthFormProps {
   mode: 'login' | 'register'
-  onSubmit: (values: { fullName?: string; email: string; password: string }) => Promise<void>
+  onSubmit: (values: AuthFormValues) => Promise<AuthResponse>
+  onSuccess?: (result: AuthResponse) => void
 }
 
-export function AuthForm({ mode, onSubmit }: AuthFormProps) {
+const EMAIL_PATTERN = /^\S+@\S+\.\S+$/
+
+export function AuthForm({ mode, onSubmit, onSuccess }: AuthFormProps) {
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [state, setState] = useState<RequestState>('idle')
-  const [error, setError] = useState<string | null>(null)
+  const [errors, setErrors] = useState<Record<string, string>>({})
+  const [generalError, setGeneralError] = useState<string | null>(null)
+
+  function validate(): boolean {
+    const next: Record<string, string> = {}
+    if (mode === 'register' && !fullName.trim()) next.fullName = 'Please enter your name.'
+    if (!EMAIL_PATTERN.test(email.trim())) next.email = 'Please enter a valid email address.'
+    if (!password) next.password = 'Please enter a password.'
+    setErrors(next)
+    return Object.keys(next).length === 0
+  }
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
-    setError(null)
+    setGeneralError(null)
+    if (!validate()) return
+
     setState('loading')
     try {
-      await onSubmit({ fullName: mode === 'register' ? fullName : undefined, email, password })
+      const result = await onSubmit({
+        fullName: mode === 'register' ? fullName.trim() : undefined,
+        email: email.trim(),
+        password,
+      })
       setState('success')
-    } catch {
-      // This is a demo marketing site with no live auth backend by default,
-      // so we treat the attempt as informational rather than a hard failure.
+      onSuccess?.(result)
+    } catch (err) {
       setState('error')
-      setError(
-        'This is a demo marketing site — there is no live account system connected yet. In production this would authenticate against the backend.',
-      )
+      if (err instanceof ApiError && err.fieldErrors) {
+        const next: Record<string, string> = {}
+        for (const [field, messages] of Object.entries(err.fieldErrors)) {
+          if (messages.length > 0) next[field] = messages[0]
+        }
+        setErrors(next)
+      } else if (err instanceof ApiError) {
+        setGeneralError(err.message)
+      } else {
+        setGeneralError('Something went wrong. Please try again.')
+      }
     }
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
+    <form onSubmit={handleSubmit} noValidate className="space-y-5">
       {mode === 'register' && (
         <FormField
           label="Full name"
           name="fullName"
           value={fullName}
           onChange={(e) => setFullName(e.target.value)}
+          error={errors.fullName}
+          autoComplete="name"
           required
         />
       )}
@@ -49,6 +84,7 @@ export function AuthForm({ mode, onSubmit }: AuthFormProps) {
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
+        error={errors.email}
         autoComplete="email"
         required
       />
@@ -58,12 +94,13 @@ export function AuthForm({ mode, onSubmit }: AuthFormProps) {
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+        error={errors.password}
         autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
         required
       />
-      {error && (
-        <p role="status" className="text-sm text-ink-700 bg-ink-900/5 rounded-xl p-3">
-          {error}
+      {generalError && (
+        <p role="alert" className="text-sm text-ink-700 bg-ink-900/5 rounded-xl p-3">
+          {generalError}
         </p>
       )}
       <Button type="submit" size="lg" className="w-full" disabled={state === 'loading'}>

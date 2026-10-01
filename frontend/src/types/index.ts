@@ -69,3 +69,15 @@ export interface ContactPayload {
   message: string
   category: string
 }
+
+export interface UserProfile {
+  id: number
+  email: string
+  first_name: string
+  date_joined: string
+}
+
+export interface AuthResponse {
+  token: string
+  user?: UserProfile
+}

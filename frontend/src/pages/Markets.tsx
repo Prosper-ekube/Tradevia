@@ -7,12 +7,11 @@ import CategoryNav from '@/components/markets/CategoryNav'
 import MarketTable from '@/components/markets/MarketTable'
 import LoadingState from '@/components/common/LoadingState'
 import ErrorState from '@/components/common/ErrorState'
-import { useFetch } from '@/hooks/useFetch'
-import { marketService } from '@/services/marketService'
+import { useLiveMarkets } from '@/hooks/useLiveMarkets'
 
 const Markets: React.FC = () => {
   const [query, setQuery] = useState('')
-  const { data, state, error } = useFetch(() => marketService.getMarkets(), [])
+  const { data, error, loading } = useLiveMarkets()
 
   const filtered = useMemo(() => {
     if (!data) return []
@@ -47,9 +46,9 @@ const Markets: React.FC = () => {
       </Section>
       <Section className="pt-0">
         <Container>
-          {state === 'loading' && <LoadingState label="Loading markets" rows={5} />}
-          {state === 'error' && <ErrorState message={error ?? undefined} />}
-          {state === 'success' && <MarketTable markets={filtered} />}
+          {loading && <LoadingState label="Loading markets" rows={5} />}
+          {error && <ErrorState message={error} />}
+          {!loading && !error && <MarketTable markets={filtered} />}
         </Container>
       </Section>
     </>

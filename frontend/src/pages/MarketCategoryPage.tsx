@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { useParams, Navigate, Link } from 'react-router-dom'
 import Section from '@/components/common/Section'
 import Container from '@/components/common/Container'
@@ -7,14 +8,18 @@ import MarketTable from '@/components/markets/MarketTable'
 import LoadingState from '@/components/common/LoadingState'
 import ErrorState from '@/components/common/ErrorState'
 import AccountCta from '@/components/account/AccountCta'
-import { useFetch } from '@/hooks/useFetch'
-import { marketService } from '@/services/marketService'
+import { useLiveMarkets } from '@/hooks/useLiveMarkets'
 import { getCategoryBySlug } from '@/data/markets'
 
 const MarketCategoryPage: React.FC = () => {
   const { categorySlug } = useParams<{ categorySlug: string }>()
   const category = categorySlug ? getCategoryBySlug(categorySlug) : undefined
-  const { data, state, error } = useFetch(() => marketService.getMarkets(categorySlug), [categorySlug])
+  const { data, error, loading } = useLiveMarkets()
+
+  const filtered = useMemo(
+    () => (data ?? []).filter((m) => m.categorySlug === categorySlug),
+    [data, categorySlug],
+  )
 
   if (!category) return <Navigate to="/markets" replace />
 
@@ -35,9 +40,9 @@ const MarketCategoryPage: React.FC = () => {
       </Section>
       <Section className="pt-0">
         <Container>
-          {state === 'loading' && <LoadingState label={`Loading ${category.name} markets`} rows={5} />}
-          {state === 'error' && <ErrorState message={error ?? undefined} />}
-          {state === 'success' && <MarketTable markets={data ?? []} />}
+          {loading && <LoadingState label={`Loading ${category.name} markets`} rows={5} />}
+          {error && <ErrorState message={error} />}
+          {!loading && !error && <MarketTable markets={filtered} />}
         </Container>
       </Section>
       <Section tone="brand-50">

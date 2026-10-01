@@ -14,6 +14,9 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / ".env")
 
+MARKET_DATA_PROVIDER = os.getenv("MARKET_DATA_PROVIDER", "twelvedata")
+MARKET_DATA_API_KEY = os.getenv("MARKET_DATA_API_KEY", "")
+
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "django-insecure-change-me-in-production")
 
 DEBUG = os.getenv("DJANGO_DEBUG", "True") == "True"
@@ -37,6 +40,13 @@ INSTALLED_APPS = [
     "contact",
     "users",
 ]
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "tradevia-market-cache",
+    }
+}
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -102,6 +112,9 @@ REST_FRAMEWORK = {
     ],
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 20,
+    "DEFAULT_THROTTLE_RATES": {
+        "auth_register": "20/hour",
+    },
 }
 
 CORS_ALLOWED_ORIGINS = [

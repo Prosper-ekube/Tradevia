@@ -49,7 +49,7 @@ const Hero: React.FC = () => (
           className="lg:col-span-5"
         >
           <div className="rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur p-5">
-            <p className="text-xs font-medium text-white/50 uppercase tracking-wide mb-3">Live watchlist &middot; illustrative</p>
+            <p className="text-xs font-medium text-white/50 uppercase tracking-wide mb-3">Live watchlist</p>
             <ul className="divide-y divide-white/10">
               {tickerMarkets.map((m) => (
                 <li key={m.id} className="flex items-center justify-between py-3">
