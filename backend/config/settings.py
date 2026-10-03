@@ -7,6 +7,7 @@ infrastructure.
 """
 
 import os
+import dj_database_url
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -19,7 +20,7 @@ MARKET_DATA_API_KEY = os.getenv("MARKET_DATA_API_KEY", "")
 
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "django-insecure-change-me-in-production")
 
-DEBUG = os.getenv("DJANGO_DEBUG", "True") == "True"
+DEBUG = os.getenv("DJANGO_DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = [h.strip() for h in os.getenv("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1").split(",") if h]
 
@@ -50,6 +51,7 @@ CACHES = {
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -80,10 +82,10 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    'default': dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        conn_max_age=600,
+    )
 }
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -99,6 +101,8 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = "static/"
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -119,6 +123,6 @@ REST_FRAMEWORK = {
 
 CORS_ALLOWED_ORIGINS = [
     o.strip()
-    for o in os.getenv("CORS_ALLOWED_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173").split(",")
+    for o in os.getenv("CORS_ALLOWED_ORIGINS", "http://localhost:5174,http://127.0.0.1:5174,https://tradevia-eight.vercel.app").split(",")
     if o
 ]
