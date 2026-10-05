@@ -6,4 +6,8 @@ pip install -r requirements.txt
 
 python manage.py migrate
 
+python manage.py seed_markets
+
+python manage.py seed_articles
+
 python manage.py collectstatic --noinput
