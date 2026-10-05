@@ -4,7 +4,13 @@ import { Button } from '@/components/common/Button'
 import { contactService } from '@/services/contactService'
 import type { ContactPayload, RequestState } from '@/types'
 
-const categories = ['General enquiry', 'Account opening', 'Existing account', 'Platform support', 'Complaint']
+const categories = [
+  'General enquiry',
+  'Site feedback',
+  'Content correction',
+  'Partnership enquiry',
+  'Other',
+]
 
 const initialForm: ContactPayload = {
   name: '',
@@ -51,7 +57,7 @@ export function ContactForm() {
       <div className="max-w-xl rounded-2xl border border-signal-up/30 bg-signal-up/5 p-6">
         <h3 className="font-semibold text-ink-950">Message sent</h3>
         <p className="mt-1.5 text-sm text-ink-700/80">
-          Thanks for reaching out &mdash; a member of the team will get back to you shortly.
+          Thanks for reaching out &mdash; we'll get back to you shortly.
         </p>
         <Button className="mt-4" variant="secondary" onClick={() => setState('idle')}>
           Send another message
@@ -61,7 +67,7 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="space-y-5">
+    <form onSubmit={handleSubmit} noValidate className="max-w-2xl space-y-5">
       <div>
         <label htmlFor="category" className="block text-sm font-medium text-ink-900 mb-1.5">
           What&rsquo;s this about?

@@ -6,11 +6,11 @@ import SectionHeading from '@/components/common/SectionHeading'
 import AccountCta from '@/components/account/AccountCta'
 
 const links = [
-  { to: '/trading/platforms', title: 'Platforms', description: 'Web, desktop and mobile trading platforms.' },
-  { to: '/trading/accounts', title: 'Account types', description: 'CFD, spread betting and share dealing accounts.' },
-  { to: '/trading/fees', title: 'Charges & spreads', description: 'How trading costs work across our markets.' },
-  { to: '/trading/conditions', title: 'Trading conditions', description: 'Leverage, execution and market hours.' },
-  { to: '/trading/tools', title: 'Tools & features', description: 'Charting, alerts and risk-management tools.' },
+  { to: '/trading/platforms', title: 'Platforms', description: "IG's web, desktop and mobile trading platforms." },
+  { to: '/trading/accounts', title: 'Account types', description: "IG's CFD, spread betting and share dealing accounts." },
+  { to: '/trading/fees', title: 'Charges & spreads', description: "How IG's trading costs work across markets." },
+  { to: '/trading/conditions', title: 'Trading conditions', description: "IG's leverage, execution and market hours." },
+  { to: '/trading/tools', title: 'Tools & features', description: "IG's charting, alerts and risk-management tools." },
 ]
 
 const Trading: React.FC = () => (
@@ -18,9 +18,9 @@ const Trading: React.FC = () => (
     <Section className="pb-8">
       <Container>
         <SectionHeading
-          eyebrow="Trading"
-          title="Everything you need to trade with confidence"
-          description="Explore our platforms, account types, costs and the tools built to support your trading."
+          eyebrow="IG trading"
+          title="Everything you need to trade with IG"
+          description="Explore IG's platforms, account types, costs and the tools built to support your trading. Tradevia is an independent guide — accounts and trading are provided by IG Group."
         />
       </Container>
     </Section>

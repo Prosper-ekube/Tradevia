@@ -35,9 +35,9 @@ const Education: React.FC = () => {
     <Section>
       <Container>
         <SectionHeading
-          eyebrow="Education"
+          eyebrow="IG education"
           title="Trading education, from first trade to advanced strategy"
-          description="Free guides and articles covering the fundamentals, risk management and trading strategy."
+          description="Free guides and articles from IG covering the fundamentals, risk management and trading strategy. Tradevia hosts these resources as an independent guide — trading is provided by IG Group."
         />
         <div className="mt-8 flex gap-2 overflow-x-auto no-scrollbar">
           {levels.map((l) => (

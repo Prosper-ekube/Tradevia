@@ -24,10 +24,15 @@ const About: React.FC = () => (
     <Section className="pb-8">
       <Container>
         <SectionHeading
-          eyebrow="Company"
+          eyebrow="About IG Group"
           title="About IG"
           description="A global provider of online trading, with a history stretching back to 1974."
         />
+        <p className="mt-6 max-w-2xl text-sm text-ink-700/70 leading-relaxed">
+          Tradevia is an independent marketing site. This page summarises IG Group&rsquo;s history
+          and facts from publicly available sources — it is not IG&rsquo;s own About page, and
+          Tradevia is not affiliated with IG Group.
+        </p>
       </Container>
     </Section>
     <Section className="pt-0">
@@ -48,7 +53,7 @@ const About: React.FC = () => (
         </div>
         <p className="mt-8 text-xs text-ink-700/50 max-w-2xl leading-relaxed">
           Historical details are drawn from publicly available sources about IG Group and are provided
-          for context. This page is part of an independent concept project and is not an official IG
+          for context. This page is part of an independent marketing site and is not an official IG
           publication.
         </p>
       </Container>

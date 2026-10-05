@@ -16,7 +16,11 @@ const tools = [
 const TradingTools: React.FC = () => (
   <Section>
     <Container>
-      <SectionHeading eyebrow="Trading &middot; Tools" title="Tools that support every stage of a trade" />
+      <SectionHeading
+        eyebrow="IG trading · Tools"
+        title="IG's tools, explained"
+        description="A quick guide to the tools IG provides inside its trading platforms. Availability may vary by platform and region."
+      />
       <div className="mt-10">
         <FeatureGrid features={tools} />
       </div>

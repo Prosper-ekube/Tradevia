@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { useParams, Navigate, Link } from 'react-router-dom'
 import Section from '@/components/common/Section'
 import Container from '@/components/common/Container'
@@ -8,25 +9,36 @@ import AccountCta from '@/components/account/AccountCta'
 import RiskBanner from '@/components/common/RiskBanner'
 import { useLiveMarkets } from '@/hooks/useLiveMarkets'
 import { markets } from '@/data/markets'
+import { IG_LINKS } from '@/data/igLinks'
+import type { Market } from '@/types'
 
 const MarketInstrument: React.FC = () => {
   const { categorySlug, instrumentSlug } = useParams<{ categorySlug: string; instrumentSlug: string }>()
   const { data: liveMarkets, error } = useLiveMarkets()
 
-  // Bundled data is the source of truth for static metadata.
   const bundled = markets.find((m) => m.slug === instrumentSlug)
-  // Live data overlays pricing fields once the poll resolves.
   const live = liveMarkets?.find((m) => m.slug === instrumentSlug)
+
+  // Merge bundled static metadata with live pricing for each related market.
+  // The relationship graph comes from bundled data since the live API
+  // doesn't expose relatedSlugs.
+  const related = useMemo<Market[]>(() => {
+    if (!bundled?.relatedSlugs || bundled.relatedSlugs.length === 0) return []
+    return bundled.relatedSlugs
+      .map((slug) => {
+        const relatedBundled = markets.find((m) => m.slug === slug)
+        if (!relatedBundled) return null
+        const relatedLive = liveMarkets?.find((m) => m.slug === slug)
+        return { ...relatedBundled, ...(relatedLive ?? {}) }
+      })
+      .filter((m): m is Market => m !== null)
+  }, [bundled, liveMarkets])
 
   if (!bundled) {
     return <Navigate to={`/markets/${categorySlug}`} replace />
   }
 
   const market = { ...bundled, ...(live ?? {}) }
-
-  const related = bundled.relatedSlugs
-    ? markets.filter((m) => bundled.relatedSlugs!.includes(m.slug))
-    : []
 
   return (
     <>
@@ -87,6 +99,9 @@ const MarketInstrument: React.FC = () => {
                   <span className="font-mono text-3xl font-semibold text-ink-950 tabular-nums">{market.price}</span>
                   <PriceChangeTag value={market.changePercent} />
                 </div>
+                <p className="mt-2 text-xs text-ink-700/60 leading-relaxed">
+                  Prices shown for reference. Trading and execution are provided by IG Group.
+                </p>
                 <dl className="mt-6 space-y-3 text-sm">
                   <div className="flex justify-between">
                     <dt className="text-ink-700/70">Spread from</dt>
@@ -97,18 +112,22 @@ const MarketInstrument: React.FC = () => {
                     <dd className="font-semibold capitalize">{market.status}</dd>
                   </div>
                 </dl>
-                <Link
-                  to="/open-account"
+                <a
+                  href={IG_LINKS.openAccount}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="mt-6 block text-center rounded-full bg-brand-500 text-white font-semibold py-3 hover:bg-brand-600 transition-colors"
                 >
-                  Trade {market.symbol}
-                </Link>
-                <Link
-                  to="/demo-account"
+                  Trade {market.symbol} with IG
+                </a>
+                <a
+                  href={IG_LINKS.demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="mt-3 block text-center rounded-full border border-ink-900/15 font-semibold py-3 hover:border-ink-900/30 transition-colors"
                 >
-                  Practise on demo
-                </Link>
+                  Practise on IG&rsquo;s demo
+                </a>
               </div>
             </aside>
           </div>

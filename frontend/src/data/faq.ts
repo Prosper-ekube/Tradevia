@@ -7,17 +7,17 @@ export const faqCategories: FaqCategory[] = [
       {
         question: 'How do I open an account?',
         answer:
-          'You can start the account-opening process online in a few minutes. You\'ll need to provide some personal details and identification documents as part of standard verification checks before you can fund your account and start trading.',
+          "You can start the account-opening process on IG's website in a few minutes. You'll need to provide some personal details and identification documents as part of standard verification checks before you can fund your account and start trading. Tradevia is an independent guide — we don't open accounts or handle your money.",
       },
       {
         question: 'What is a demo account?',
         answer:
-          'A demo account lets you practise trading with virtual funds in a live market environment, so you can explore platforms and features risk-free before committing real capital.',
+          "IG's demo account lets you practise trading with virtual funds in a live market environment, so you can explore platforms and features risk-free before committing real capital.",
       },
       {
         question: 'What is the minimum deposit?',
         answer:
-          'Minimum deposit requirements can vary by account type, region and payment method. Check the account opening flow for details relevant to your location.',
+          "Minimum deposit requirements at IG can vary by account type, region and payment method. Check IG's account opening flow for details relevant to your location.",
       },
     ],
   },
@@ -27,7 +27,7 @@ export const faqCategories: FaqCategory[] = [
       {
         question: 'What is the difference between CFDs and spread betting?',
         answer:
-          'Both let you speculate on price movements without owning the underlying asset and both use leverage. Spread betting profits are typically tax-free in the UK and Ireland (subject to individual circumstances and current tax law), while CFDs are more widely available internationally and losses may be usable for tax purposes.',
+          "Both let you speculate on price movements without owning the underlying asset and both use leverage. Spread betting profits are typically tax-free in the UK and Ireland (subject to individual circumstances and current tax law), while CFDs are more widely available internationally and losses may be usable for tax purposes.",
       },
       {
         question: 'Can I trade outside of standard market hours?',
@@ -47,7 +47,7 @@ export const faqCategories: FaqCategory[] = [
       {
         question: 'How is my money protected?',
         answer:
-          'Client funds are typically held in segregated accounts, separate from company funds, in line with regulatory requirements in each jurisdiction IG operates.',
+          "Client funds are typically held in segregated accounts by IG, separate from company funds, in line with regulatory requirements in each jurisdiction IG operates in.",
       },
       {
         question: 'Is IG regulated?',
@@ -57,7 +57,7 @@ export const faqCategories: FaqCategory[] = [
       {
         question: 'How do I reset my password?',
         answer:
-          'You can reset your password from the login page using the "Forgotten your details?" link, which will guide you through identity verification and a secure reset process.',
+          'You can reset your password from IG\'s login page using the "Forgotten your details?" link, which will guide you through identity verification and a secure reset process.',
       },
     ],
   },
@@ -67,12 +67,12 @@ export const faqCategories: FaqCategory[] = [
       {
         question: 'What fees does IG charge?',
         answer:
-          'Costs vary by product and market, and can include spreads, overnight funding charges on leveraged positions, and commission on certain products like share dealing. Full details are available in the trading conditions section.',
+          'Costs vary by product and market, and can include spreads, overnight funding charges on leveraged positions, and commission on certain products like share dealing. Full details are available on IG\'s site and in your account\'s trading conditions.',
       },
       {
         question: 'What payment methods are accepted?',
         answer:
-          'Accepted payment methods vary by region and typically include bank transfer and debit card, among others. Available options are shown during the deposit process.',
+          'Accepted payment methods at IG vary by region and typically include bank transfer and debit card, among others. Available options are shown during the deposit process.',
       },
     ],
   },

@@ -38,8 +38,7 @@ INSTALLED_APPS = [
     # Local apps
     "markets",
     "content",
-    "contact",
-    "users",
+    "contact",    
 ]
 
 CACHES = {
@@ -116,9 +115,6 @@ REST_FRAMEWORK = {
     ],
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 20,
-    "DEFAULT_THROTTLE_RATES": {
-        "auth_register": "20/hour",
-    },
 }
 
 CORS_ALLOWED_ORIGINS = [

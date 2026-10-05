@@ -25,9 +25,9 @@ const Markets: React.FC = () => {
       <Section className="pb-8">
         <Container>
           <SectionHeading
-            eyebrow="Markets"
-            title="All markets"
-            description="Search and browse the markets available to trade via spread betting and CFDs."
+            eyebrow="IG markets"
+            title="Markets available through IG"
+            description="Search and browse the markets available to trade through IG via spread betting and CFDs. Tradevia is an independent guide — trading is provided by IG Group."
           />
           <div className="mt-8 space-y-5">
             <CategoryNav />

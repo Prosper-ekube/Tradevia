@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { IG_LINKS } from '@/data/igLinks'
 
 interface AccountTypeCardProps {
   name: string
@@ -9,9 +9,8 @@ interface AccountTypeCardProps {
 
 const AccountTypeCard: React.FC<AccountTypeCardProps> = ({ name, tagline, points, highlighted }) => (
   <div
-    className={`rounded-2xl p-6 border flex flex-col ${
-      highlighted ? 'border-brand-500 bg-brand-50' : 'border-ink-900/10 bg-white'
-    }`}
+    className={`rounded-2xl p-6 border flex flex-col ${highlighted ? 'border-brand-500 bg-brand-50' : 'border-ink-900/10 bg-white'
+      }`}
   >
     {highlighted && (
       <span className="self-start text-xs font-semibold text-brand-700 bg-brand-100 px-2.5 py-1 rounded-full mb-3">
@@ -28,12 +27,14 @@ const AccountTypeCard: React.FC<AccountTypeCardProps> = ({ name, tagline, points
         </li>
       ))}
     </ul>
-    <Link
-      to="/open-account"
+    <a
+      href={IG_LINKS.openAccount}
+      target="_blank"
+      rel="noopener noreferrer"
       className="mt-5 inline-flex justify-center rounded-full bg-ink-950 text-white text-sm font-semibold px-5 py-2.5 hover:bg-ink-900 transition-colors"
     >
       Get started
-    </Link>
+    </a>
   </div>
 )
 

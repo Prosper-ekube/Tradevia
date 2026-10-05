@@ -12,6 +12,9 @@ const stats = [
 const StatsSection: React.FC = () => (
   <Section tone="ink">
     <Container>
+      <p className="text-sm font-medium text-brand-300 mb-4 text-center">
+        IG at a glance
+      </p>
       <StatStrip stats={stats} light />
     </Container>
   </Section>

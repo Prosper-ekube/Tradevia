@@ -15,9 +15,9 @@ const TradingFees: React.FC = () => (
   <Section>
     <Container>
       <SectionHeading
-        eyebrow="Trading &middot; Charges & spreads"
-        title="Transparent, straightforward pricing"
-        description="Costs vary by product, market and account type. This page explains the types of charges you may encounter — always check specific market pages for current rates."
+        eyebrow="IG trading · Charges & spreads"
+        title="How IG's pricing works"
+        description="Costs vary by product, market and account type. This page explains the types of charges you may encounter with IG — always check the specific market page on IG's site for current rates."
       />
       <div className="mt-10 rounded-2xl border border-ink-900/10 divide-y divide-ink-900/10 bg-white overflow-hidden">
         {feeRows.map((row) => (

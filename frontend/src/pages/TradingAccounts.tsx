@@ -7,18 +7,18 @@ import RiskBanner from '@/components/common/RiskBanner'
 const accountTypes = [
   {
     name: 'CFD trading account',
-    tagline: 'Trade thousands of markets on leverage, long or short.',
+    tagline: "Trade thousands of markets on leverage, long or short, with IG's CFD account.",
     points: ['Available in most regions', 'Losses may offset gains for tax purposes in some jurisdictions', 'Access to forex, indices, shares, commodities and crypto'],
   },
   {
     name: 'Spread betting account',
-    tagline: 'Speculate on price movements with a bet per point.',
+    tagline: "Speculate on price movements with IG's spread betting account, using a bet per point.",
     highlighted: true,
     points: ['UK and Ireland residents only', 'Tax-free profits, subject to individual circumstances', 'No stamp duty on UK shares'],
   },
   {
     name: 'Share dealing account',
-    tagline: 'Buy and own shares outright, without leverage.',
+    tagline: "Buy and own shares outright through IG, without leverage.",
     points: ['Own the underlying shares', 'Eligible for ISAs in the UK, where applicable', 'Access to a wide range of global exchanges'],
   },
 ]
@@ -28,8 +28,8 @@ const TradingAccounts: React.FC = () => (
     <Section className="pb-8">
       <Container>
         <SectionHeading
-          eyebrow="Trading &middot; Accounts"
-          title="Choose the account that fits how you trade"
+          eyebrow="IG trading · Accounts"
+          title="Choose the IG account that fits how you trade"
           description="Account availability varies by country of residence and local regulation."
         />
       </Container>

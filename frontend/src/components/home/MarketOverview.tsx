@@ -9,8 +9,8 @@ const MarketOverview: React.FC = () => (
     <Container>
       <SectionHeading
         eyebrow="Markets"
-        title="Thousands of markets, one platform"
-        description="From major currency pairs to niche commodities, access the instruments you want to trade in one place."
+        title="Thousands of markets, one platform - IG"
+        description="From major currency pairs to niche commodities, explore the instruments available to trade through IG in one place."
       />
       <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {marketCategories.map((c) => (

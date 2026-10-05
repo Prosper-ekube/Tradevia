@@ -32,7 +32,7 @@ const MarketCategoryPage: React.FC = () => {
             <span className="mx-2">/</span>
             <span className="text-ink-900">{category.name}</span>
           </nav>
-          <SectionHeading eyebrow="Markets" title={category.name} description={category.description} />
+          <SectionHeading eyebrow="IG markets" title={category.name} description={category.description} />
           <div className="mt-8">
             <CategoryNav />
           </div>

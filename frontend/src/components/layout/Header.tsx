@@ -1,23 +1,19 @@
 import { useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { FiMenu } from 'react-icons/fi'
 import { primaryNav } from '@/data/nav'
 import NavDropdown from '@/components/navigation/NavDropdown'
 import MobileNav from '@/components/navigation/MobileNav'
-import { useAuth } from '@/hooks/useAuth'
-import { useLogout } from '@/hooks/useLogout'
-import { classNames } from '@/utils/format'
+import { IG_LINKS } from '@/data/igLinks'
 
 const Header: React.FC = () => {
   const [mobileOpen, setMobileOpen] = useState(false)
-  const { isAuthenticated, user } = useAuth()
-  const logout = useLogout()
 
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-ink-900/10">
       <div className="container-page">
         <div className="h-16 flex items-center justify-between gap-4">
-          <Link to="/" className="flex items-center gap-2 shrink-0" aria-label="IG home">
+          <Link to="/" className="flex items-center gap-2 shrink-0" aria-label="Tradevia home">
             <span className="font-display text-2xl font-bold tracking-tight text-ink-950">Tradevia</span>
           </Link>
 
@@ -28,39 +24,22 @@ const Header: React.FC = () => {
           </nav>
 
           <div className="hidden md:flex items-center gap-2">
-            {isAuthenticated ? (
-              <>
-                <span className="px-3 text-sm text-ink-700/80">
-                  Hi, {user?.first_name || user?.email}
-                </span>
-                <button
-                  onClick={logout}
-                  className="px-4 py-2 text-sm font-semibold rounded-full border border-ink-900/15 hover:border-ink-900/30 transition-colors"
-                >
-                  Log out
-                </button>
-              </>
-            ) : (
-              <>
-                <NavLink
-                  to="/login"
-                  className={({ isActive }) =>
-                    classNames(
-                      'px-4 py-2 text-sm font-semibold rounded-full border border-ink-900/15 hover:border-ink-900/30 transition-colors',
-                      isActive && 'border-ink-900/40',
-                    )
-                  }
-                >
-                  Log in
-                </NavLink>
-                <Link
-                  to="/open-account"
-                  className="px-4 py-2 text-sm font-semibold rounded-full bg-brand-500 text-white hover:bg-brand-600 transition-colors"
-                >
-                  Open an account
-                </Link>
-              </>
-            )}
+            <a
+              href={IG_LINKS.login}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2 text-sm font-semibold rounded-full border border-ink-900/15 hover:border-ink-900/30 transition-colors"
+            >
+              Log in
+            </a>
+            <a
+              href={IG_LINKS.openAccount}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2 text-sm font-semibold rounded-full bg-brand-500 text-white hover:bg-brand-600 transition-colors"
+            >
+              Open an account
+            </a>
           </div>
 
           <button
